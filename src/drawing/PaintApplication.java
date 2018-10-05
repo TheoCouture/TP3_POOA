@@ -45,7 +45,8 @@ public class PaintApplication extends Application {
         statutBar = new StatutBar(drawingPane);
         drawingPane.addObserver(statutBar);
         clearButton = new Button("Clear");
-        clearButton.setOnAction(event -> drawingPane.clear());
+        //clearButton.setOnAction(event -> drawingPane.clear());
+        clearButton.addEventFilter(ActionEvent.ACTION, new ClearButtonHandler(drawingPane));
         rectangleButton = new Button("Rectangle");
         rectangleButton.addEventFilter(ActionEvent.ACTION, new RectangleButtonHandler(drawingPane));
         circleButton = new Button("Circle");
