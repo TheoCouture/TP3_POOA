@@ -25,6 +25,7 @@ public class PaintApplication extends Application {
     private Button rectangleButton;
     private Button circleButton;
     private Button triangleButton;
+    private StatutBar statutBar;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -39,6 +40,7 @@ public class PaintApplication extends Application {
         root.setCenter(drawingPane);
 
         HBox hBox = new HBox();
+        statutBar = new StatutBar();
         clearButton = new Button("Clear");
         clearButton.setOnAction(event -> drawingPane.clear());
         rectangleButton = new Button("Rectangle");
@@ -52,6 +54,10 @@ public class PaintApplication extends Application {
         hBox.setSpacing(5.0);
         hBox.getStyleClass().add("toolbar");
         root.setTop(hBox);
+
+        statutBar.setPadding(new Insets(15));
+        statutBar.setSpacing(5.0);
+        root.setBottom(statutBar);
 
         primaryStage.setTitle("Drawing");
         primaryStage.setScene(scene);
