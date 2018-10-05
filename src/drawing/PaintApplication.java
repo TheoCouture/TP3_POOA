@@ -21,6 +21,7 @@ public class PaintApplication extends Application {
     private BorderPane root;
     private DrawingPane drawingPane;
 
+
     private Button clearButton;
     private Button rectangleButton;
     private Button circleButton;
@@ -39,8 +40,10 @@ public class PaintApplication extends Application {
         drawingPane.getStyleClass().add("drawingPane");
         root.setCenter(drawingPane);
 
+
         HBox hBox = new HBox();
-        statutBar = new StatutBar();
+        statutBar = new StatutBar(drawingPane);
+        drawingPane.addObserver(statutBar);
         clearButton = new Button("Clear");
         clearButton.setOnAction(event -> drawingPane.clear());
         rectangleButton = new Button("Rectangle");
@@ -55,8 +58,9 @@ public class PaintApplication extends Application {
         hBox.getStyleClass().add("toolbar");
         root.setTop(hBox);
 
-        statutBar.setPadding(new Insets(15));
+        statutBar.setPadding(new Insets(5));
         statutBar.setSpacing(5.0);
+        statutBar.getStyleClass().add("statutbar");
         root.setBottom(statutBar);
 
         primaryStage.setTitle("Drawing");

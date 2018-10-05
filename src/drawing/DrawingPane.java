@@ -6,12 +6,17 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by lewandowski on 20/12/2017.
  */
-public class DrawingPane extends Pane implements Iterable<Shape> {
+public class DrawingPane extends Pane implements Iterable<Shape>,Observable {
+
+    private List<Observer> observers = new ArrayList<>();
+    private int state = 0;
 
     private MouseMoveHandler mouseMoveHandler;
 
@@ -42,6 +47,8 @@ public class DrawingPane extends Pane implements Iterable<Shape> {
     public void addShape(Shape shape) {
         shapes.add(shape);
         this.getChildren().add(shape);
+        setState(getState()+1);
+        this.notifyObservers();
     }
 
   /*  public ArrayList<Shape> getShapes() {
@@ -51,10 +58,31 @@ public class DrawingPane extends Pane implements Iterable<Shape> {
     public void clear() {
         this.getChildren().removeAll(shapes);
         shapes.clear();
+        setState(0);
+    }
+
+    public Integer getNbShape(){
+        return shapes.size();
     }
 
     @Override
     public Iterator<Shape> iterator() {
         return shapes.iterator();
+    }
+
+    public void addObserver(Observer o) {
+        observers.add(o);
+    }
+    public void removeObserver(Observer o) {
+        observers.remove(o);
+    }
+    public void notifyObservers(){
+        for(Observer obs : observers)
+            obs.update();
+    }
+    public int getState() { return this.state; }
+    public void setState(int state) {
+        this.state = state;
+        notifyObservers();
     }
 }
