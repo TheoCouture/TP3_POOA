@@ -13,14 +13,14 @@ import java.util.List;
 /**
  * Created by lewandowski on 20/12/2017.
  */
-public class DrawingPane extends Pane implements Iterable<Shape>,Observable {
+public class DrawingPane extends Pane implements Iterable<IShape>,Observable {
 
     private List<Observer> observers = new ArrayList<>();
     private int state = 0;
 
     private MouseMoveHandler mouseMoveHandler;
 
-    private ArrayList<Shape> shapes;
+    private ArrayList<IShape> shapes;
 
     public DrawingPane() {
         clipChildren();
@@ -44,9 +44,10 @@ public class DrawingPane extends Pane implements Iterable<Shape>,Observable {
         });
     }
 
-    public void addShape(Shape shape) {
+    public void addShape(IShape shape) {
         shapes.add(shape);
-        this.getChildren().add(shape);
+        //
+        shape.addShapeToPane(this);
         setState(getState()+1);
         this.notifyObservers();
     }
@@ -56,7 +57,9 @@ public class DrawingPane extends Pane implements Iterable<Shape>,Observable {
     }*/
 
     public void clear() {
-        this.getChildren().removeAll(shapes);
+        for (IShape shap : shapes){
+            shap.removeShapeFromPane(this);
+        }
         shapes.clear();
         setState(0);
     }
@@ -66,7 +69,7 @@ public class DrawingPane extends Pane implements Iterable<Shape>,Observable {
     }
 
     @Override
-    public Iterator<Shape> iterator() {
+    public Iterator<IShape> iterator() {
         return shapes.iterator();
     }
 

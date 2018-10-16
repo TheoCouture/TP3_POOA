@@ -28,7 +28,11 @@
  }
 
 .triangle {
- -fx-fill: grey;
- -fx-stroke: black;
- -fx-stroke-width: 3;
+    -fx-fill: grey;
+    -fx-stroke: black;
+    -fx-stroke-width: 3;
+}
+
+.selected{
+    -fx-effect:dropshadow(gaussian,cornflowerblue,8,0.7,0,0);
 }

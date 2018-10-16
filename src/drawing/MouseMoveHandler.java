@@ -16,7 +16,7 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
     private double orgTranslateX;
     private double orgTranslateY;
 
-    private Shape selectedShape;
+    private IShape selectedShape;
 
     public MouseMoveHandler(DrawingPane drawingPane) {
         this.drawingPane = drawingPane;
@@ -29,19 +29,26 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
     public void handle(MouseEvent event) {
 
         if (event.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
+
             orgSceneX = event.getSceneX();
             orgSceneY = event.getSceneY();
 
 
-            for (Shape shape : drawingPane) {
-                if (shape.getBoundsInParent().contains(event.getX(), event.getY())) {
+            for (IShape shape : drawingPane) {
+                /*if (shape.getBoundsInParent().contains(event.getX(), event.getY())) {
                     selectedShape = shape;
+                    break;
+                }*/
+                if (shape.isOn(event.getX(), event.getY())) {
+                    selectedShape = shape;
+                    selectedShape.setSelected(true);
                     break;
                 }
             }
 
-            orgTranslateX = selectedShape == null ? 0 : selectedShape.getTranslateX();
-            orgTranslateY = selectedShape == null ? 0 : selectedShape.getTranslateY();
+            //orgTranslateX = selectedShape == null ? 0 : selectedShape.getTranslateX();
+            //orgTranslateY = selectedShape == null ? 0 : selectedShape.getTranslateY();
+
 
         }
 
@@ -49,16 +56,28 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
             if (selectedShape == null)
                 return;
 
+
             double offsetX = event.getSceneX() - orgSceneX;
             double offsetY = event.getSceneY() - orgSceneY;
-            double newTranslateX = orgTranslateX + offsetX;
-            double newTranslateY = orgTranslateY + offsetY;
 
-            selectedShape.setTranslateX(newTranslateX);
-            selectedShape.setTranslateY(newTranslateY);
+            selectedShape.offset(offsetX,offsetY);
+
+            orgSceneX += offsetX;
+            orgSceneY += offsetY;
+
+            //double newTranslateX = orgTranslateX + offsetX;
+            //double newTranslateY = orgTranslateY + offsetY;
+
+            //selectedShape.setTranslateX(newTranslateX);
+            //selectedShape.setTranslateY(newTranslateY);
         }
 
         if (event.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
+            if (selectedShape == null)
+                return;
+            
+            if (selectedShape.isSelected())
+                selectedShape.setSelected(false);
             selectedShape = null;
         }
     }
