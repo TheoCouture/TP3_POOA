@@ -20,12 +20,15 @@ public class DrawingPane extends Pane implements Iterable<IShape>,Observable {
 
     private MouseMoveHandler mouseMoveHandler;
 
+    private SelectionHandler selectHandler;
+
     private ArrayList<IShape> shapes;
 
     public DrawingPane() {
         clipChildren();
         shapes = new ArrayList<>();
         mouseMoveHandler = new MouseMoveHandler(this);
+        selectHandler = new SelectionHandler(this);
     }
 
 
@@ -67,6 +70,8 @@ public class DrawingPane extends Pane implements Iterable<IShape>,Observable {
     public Integer getNbShape(){
         return shapes.size();
     }
+
+    public ArrayList<IShape> getSelection() { return selectHandler.getSelection();}
 
     @Override
     public Iterator<IShape> iterator() {
