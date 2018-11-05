@@ -1,12 +1,12 @@
 package drawing;
 
+import drawing.ui.DrawingPane;
+import drawing.ui.StatutBar;
+import drawing.ui.ToolBar;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
@@ -22,12 +22,13 @@ public class PaintApplication extends Application {
     private DrawingPane drawingPane;
 
 
-    private Button clearButton;
+    /*private Button clearButton;
     private Button rectangleButton;
     private Button circleButton;
     private Button triangleButton;
-    private Button clearSelectedButton;
+    private Button clearSelectedButton;*/
     private StatutBar statutBar;
+    private ToolBar toolBar;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -35,32 +36,22 @@ public class PaintApplication extends Application {
         scene = new Scene(root, WIDTH, HEIGHT);
 
         root.getStylesheets().add(
-                PaintApplication.class.getResource("./Paint.css").toExternalForm());
+                PaintApplication.class.getResource("css/Paint.css").toExternalForm());
 
         drawingPane = new DrawingPane();
         drawingPane.getStyleClass().add("drawingPane");
         root.setCenter(drawingPane);
 
-
-        HBox hBox = new HBox();
         statutBar = new StatutBar(drawingPane);
         drawingPane.addObserver(statutBar);
-        clearButton = new Button("Clear");
-        //clearButton.setOnAction(event -> drawingPane.clear());
-        clearButton.addEventFilter(ActionEvent.ACTION, new ClearButtonHandler(drawingPane));
-        rectangleButton = new Button("Rectangle");
-        rectangleButton.addEventFilter(ActionEvent.ACTION, new RectangleButtonHandler(drawingPane));
-        circleButton = new Button("Circle");
-        circleButton.addEventFilter(ActionEvent.ACTION, new EllipseButtonHandler(drawingPane));
-        triangleButton = new Button("Triangle");
-        triangleButton.addEventFilter(ActionEvent.ACTION, new TriangleButtonHandler(drawingPane));
-        clearSelectedButton = new Button("ClearSelected");
-        clearSelectedButton.addEventFilter(ActionEvent.ACTION, new ClearSelectedButtonHandler(drawingPane));
-        hBox.getChildren().addAll(clearButton, rectangleButton, circleButton, triangleButton,clearSelectedButton);
-        hBox.setPadding(new Insets(5));
-        hBox.setSpacing(5.0);
-        hBox.getStyleClass().add("toolbar");
-        root.setTop(hBox);
+
+        toolBar = new ToolBar(drawingPane);
+
+        statutBar = new StatutBar(drawingPane);
+        drawingPane.addObserver(statutBar);
+
+        root.setTop(toolBar);
+
 
         statutBar.setPadding(new Insets(5));
         statutBar.setSpacing(5.0);

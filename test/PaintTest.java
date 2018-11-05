@@ -1,5 +1,5 @@
 import drawing.PaintApplication;
-import drawing.ShapeAdapter;
+import drawing.shapes.ShapeAdapter;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;

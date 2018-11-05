@@ -1,15 +1,16 @@
-package drawing;
+package drawing.handlers;
 
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap;
+import drawing.ui.DrawingPane;
+import drawing.shapes.IShape;
+import drawing.ui.Observable;
+import drawing.ui.Observer;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectionHandler implements EventHandler<MouseEvent>,Observable {
+public class SelectionHandler implements EventHandler<MouseEvent>, Observable {
 
     private ArrayList<IShape> iShapes ;
 

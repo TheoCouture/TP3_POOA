@@ -1,4 +1,6 @@
-package drawing;
+package drawing.shapes;
+
+import drawing.ui.DrawingPane;
 
 public interface IShape {
     public void addShapeToPane(DrawingPane p);

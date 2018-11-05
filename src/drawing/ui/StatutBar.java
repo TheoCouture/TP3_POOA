@@ -1,5 +1,6 @@
-package drawing;
+package drawing.ui;
 
+        import drawing.handlers.SelectionHandler;
         import javafx.scene.control.Label;
         import javafx.scene.layout.HBox;
 

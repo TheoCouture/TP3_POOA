@@ -1,19 +1,20 @@
-package drawing;
+package drawing.ui;
 
+import drawing.shapes.IShape;
+import drawing.handlers.MouseMoveHandler;
+import drawing.handlers.SelectionHandler;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by lewandowski on 20/12/2017.
  */
-public class DrawingPane extends Pane implements Iterable<IShape>,Observable {
+public class DrawingPane extends Pane implements Iterable<IShape>, Observable {
 
     private List<Observer> observers = new ArrayList<>();
     private int state = 0;
