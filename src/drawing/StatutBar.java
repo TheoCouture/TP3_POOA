@@ -9,13 +9,15 @@ public class StatutBar extends HBox implements Observer {
 
     private DrawingPane p;
 
+    private SelectionHandler selectHand;
+
     public StatutBar(DrawingPane p){
-        mylabel = new Label("0 shape");
+        mylabel = new Label("0 shape - 0 selected");
         this.getChildren().addAll(mylabel);
         this.p=p;
     }
 
     public void update(){
-        this.mylabel.setText(p.getNbShape() + " shape(s)");
+        this.mylabel.setText(p.getNbShape() + " shape(s) - "+ p.getNbSelectedShape() +" selected");
     }
 }

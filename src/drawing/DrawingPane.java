@@ -51,8 +51,7 @@ public class DrawingPane extends Pane implements Iterable<IShape>,Observable {
         shapes.add(shape);
         //
         shape.addShapeToPane(this);
-        setState(getState()+1);
-        this.notifyObservers();
+        notifyObservers();
     }
 
   /*  public ArrayList<Shape> getShapes() {
@@ -64,12 +63,26 @@ public class DrawingPane extends Pane implements Iterable<IShape>,Observable {
             shap.removeShapeFromPane(this);
         }
         shapes.clear();
-        setState(0);
+        notifyObservers();
+    }
+
+    public void clearShape(ArrayList<IShape> shapes){
+        for (IShape shape : shapes) {
+            shape.removeShapeFromPane(this);
+            this.shapes.remove(shape);
+        }
+        selectHandler.emptySelection();
+        notifyObservers();
+
     }
 
     public Integer getNbShape(){
         return shapes.size();
     }
+
+    public Integer getNbSelectedShape(){return selectHandler.getNbSelection(); }
+
+    public ArrayList<IShape> getSelectedShape(){return selectHandler.getSelection();}
 
     public ArrayList<IShape> getSelection() { return selectHandler.getSelection();}
 
@@ -80,6 +93,7 @@ public class DrawingPane extends Pane implements Iterable<IShape>,Observable {
 
     public void addObserver(Observer o) {
         observers.add(o);
+        selectHandler.addObserver(o);
     }
     public void removeObserver(Observer o) {
         observers.remove(o);
@@ -87,10 +101,5 @@ public class DrawingPane extends Pane implements Iterable<IShape>,Observable {
     public void notifyObservers(){
         for(Observer obs : observers)
             obs.update();
-    }
-    public int getState() { return this.state; }
-    public void setState(int state) {
-        this.state = state;
-        notifyObservers();
     }
 }

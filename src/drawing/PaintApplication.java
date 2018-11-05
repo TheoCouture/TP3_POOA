@@ -26,6 +26,7 @@ public class PaintApplication extends Application {
     private Button rectangleButton;
     private Button circleButton;
     private Button triangleButton;
+    private Button clearSelectedButton;
     private StatutBar statutBar;
 
     @Override
@@ -53,7 +54,9 @@ public class PaintApplication extends Application {
         circleButton.addEventFilter(ActionEvent.ACTION, new EllipseButtonHandler(drawingPane));
         triangleButton = new Button("Triangle");
         triangleButton.addEventFilter(ActionEvent.ACTION, new TriangleButtonHandler(drawingPane));
-        hBox.getChildren().addAll(clearButton, rectangleButton, circleButton, triangleButton);
+        clearSelectedButton = new Button("ClearSelected");
+        clearSelectedButton.addEventFilter(ActionEvent.ACTION, new ClearSelectedButtonHandler(drawingPane));
+        hBox.getChildren().addAll(clearButton, rectangleButton, circleButton, triangleButton,clearSelectedButton);
         hBox.setPadding(new Insets(5));
         hBox.setSpacing(5.0);
         hBox.getStyleClass().add("toolbar");
