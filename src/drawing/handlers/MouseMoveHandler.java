@@ -73,15 +73,8 @@ public class MouseMoveHandler implements EventHandler<MouseEvent> {
             orgSceneY += offsetY;
         }
 
-        /*if (event.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
-            for( IShape selectedShape : selectedShapes ) {
-                if (selectedShape == null)
-                    return;
+        if (event.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
 
-                if (selectedShape.isSelected())
-                    selectedShape.setSelected(false);
-                selectedShape = null;
-            }
-        }*/
+        }
     }
 }

@@ -1,5 +1,7 @@
 import drawing.PaintApplication;
+import drawing.shapes.IShape;
 import drawing.shapes.ShapeAdapter;
+import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
@@ -31,7 +33,7 @@ public class PaintTest extends ApplicationTest {
                     app.getDrawingPane().addShape(new ShapeAdapter(new Ellipse(20, 20, 30, 30)));
                 });
         Iterator it = app.getDrawingPane().iterator();
-        assertTrue(it.next() instanceof Ellipse);
+        assertTrue(it.next() instanceof IShape);
         assertFalse(it.hasNext());
     }
 
@@ -47,7 +49,7 @@ public class PaintTest extends ApplicationTest {
 
         // then:
         Iterator it = app.getDrawingPane().iterator();
-        assertTrue(it.next() instanceof Ellipse);
+        assertTrue(it.next() instanceof IShape);
         assertFalse(it.hasNext());
     }
 
@@ -62,7 +64,7 @@ public class PaintTest extends ApplicationTest {
 
         // then:
         Iterator it = app.getDrawingPane().iterator();
-        assertTrue(it.next() instanceof Rectangle);
+        assertTrue(it.next() instanceof IShape);
         assertFalse(it.hasNext());
     }
 
@@ -77,7 +79,7 @@ public class PaintTest extends ApplicationTest {
 
         // then:
         Iterator it = app.getDrawingPane().iterator();
-        assertTrue(it.next() instanceof Polygon);
+        assertTrue(it.next() instanceof IShape);
         assertFalse(it.hasNext());
     }
 
@@ -96,6 +98,48 @@ public class PaintTest extends ApplicationTest {
 
         // then:
         assertFalse(app.getDrawingPane().iterator().hasNext());
+    }
+
+    @Test
+    public void should_display_right_number() {
+        clickOn("Triangle");
+        moveBy(50,80).drag().dropBy(60,100);
+        clickOn("Circle");
+        moveBy(60,80).drag().dropBy(70,40);
+
+        assertTrue(app.getDrawingPane().getNbShape() == 2);
+    }
+
+    @Test
+    public void should_display_right_number_clear() {
+        clickOn("Triangle");
+        moveBy(50,80).drag().dropBy(60,100);
+        clickOn("Circle");
+        moveBy(60,80).drag().dropBy(70,40);
+        clickOn("Clear");
+        assertTrue(app.getDrawingPane().getNbShape() == 0);
+    }
+
+    @Test
+    public void should_display_right_number_select() {
+        clickOn("Triangle");
+        moveBy(50,80).drag().dropBy(60,100);
+        clickOn("Circle");
+        moveBy(60,80).drag().dropBy(70,40);
+        clickOn(app.getDrawingPane().getChildren().get(1));
+        press(KeyCode.CONTROL).clickOn(app.getDrawingPane().getChildren().get(0));
+        assertTrue(app.getDrawingPane().getNbSelectedShape() == 2);
+    }
+
+    @Test
+    public void should_display_right_number_remove_one() {
+        clickOn("Triangle");
+        moveBy(50,80).drag().dropBy(60,100);
+        clickOn("Circle");
+        moveBy(10,10).drag().dropBy(70,40);
+        clickOn(app.getDrawingPane().getChildren().get(0));
+        clickOn("Clear Select");
+        assertTrue(app.getDrawingPane().getNbShape() == 1);
     }
 
 }

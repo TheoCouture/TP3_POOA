@@ -8,6 +8,8 @@ import drawing.handlers.TriangleButtonHandler;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 
@@ -19,20 +21,23 @@ public class ToolBar extends HBox {
     private Button circleButton;
     private Button triangleButton;
     private Button clearSelectedButton;
+    private ButtonFactory bf;
 
 
     public ToolBar(DrawingPane pane){
         this.pane = pane;
+        this.bf = new ButtonFactory(ButtonFactory.TEXTONLY);
 
-        clearButton = new Button("Clear");
+
+        clearButton = bf.createButton(ButtonFactory.DELETEALL);
         clearButton.addEventFilter(ActionEvent.ACTION, new ClearButtonHandler(pane));
-        rectangleButton = new Button("Rectangle");
+        rectangleButton = bf.createButton(ButtonFactory.SQUARE);
         rectangleButton.addEventFilter(ActionEvent.ACTION, new RectangleButtonHandler(pane));
-        circleButton = new Button("Circle");
+        circleButton = bf.createButton(ButtonFactory.CIRCLE);
         circleButton.addEventFilter(ActionEvent.ACTION, new EllipseButtonHandler(pane));
-        triangleButton = new Button("Triangle");
+        triangleButton = bf.createButton(ButtonFactory.TRIANGLE);
         triangleButton.addEventFilter(ActionEvent.ACTION, new TriangleButtonHandler(pane));
-        clearSelectedButton = new Button("ClearSelected");
+        clearSelectedButton = bf.createButton(ButtonFactory.CLEARSELECT);
         clearSelectedButton.addEventFilter(ActionEvent.ACTION, new ClearSelectedButtonHandler(pane));
         this.getChildren().addAll(clearButton, rectangleButton, circleButton, triangleButton, clearSelectedButton);
 
