@@ -1,10 +1,6 @@
 package drawing.ui;
 
-import drawing.handlers.ClearButtonHandler;
-import drawing.handlers.ClearSelectedButtonHandler;
-import drawing.handlers.RectangleButtonHandler;
-import drawing.handlers.EllipseButtonHandler;
-import drawing.handlers.TriangleButtonHandler;
+import drawing.handlers.*;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -21,6 +17,8 @@ public class ToolBar extends HBox {
     private Button circleButton;
     private Button triangleButton;
     private Button clearSelectedButton;
+    private Button associateButton;
+    private Button disassociateButton;
     private ButtonFactory bf;
 
 
@@ -37,9 +35,17 @@ public class ToolBar extends HBox {
         circleButton.addEventFilter(ActionEvent.ACTION, new EllipseButtonHandler(pane));
         triangleButton = bf.createButton(ButtonFactory.TRIANGLE);
         triangleButton.addEventFilter(ActionEvent.ACTION, new TriangleButtonHandler(pane));
+
+
+        associateButton = bf.createButton(ButtonFactory.ASSOCIATE);
+        associateButton.addEventFilter(ActionEvent.ACTION, new AssociateButtonHandler(pane));
+
+        disassociateButton = bf.createButton(ButtonFactory.DISASSOCIATE);
+        disassociateButton.addEventFilter(ActionEvent.ACTION, new DisassociateButtonHandler(pane));
+
         clearSelectedButton = bf.createButton(ButtonFactory.CLEARSELECT);
         clearSelectedButton.addEventFilter(ActionEvent.ACTION, new ClearSelectedButtonHandler(pane));
-        this.getChildren().addAll(clearButton, rectangleButton, circleButton, triangleButton, clearSelectedButton);
+        this.getChildren().addAll(clearButton, rectangleButton, circleButton, triangleButton, clearSelectedButton,associateButton,disassociateButton);
 
         this.setPadding(new Insets(5));
         this.setSpacing(5.0);

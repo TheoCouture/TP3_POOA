@@ -142,4 +142,17 @@ public class PaintTest extends ApplicationTest {
         assertTrue(app.getDrawingPane().getNbShape() == 1);
     }
 
+    @Test
+    public void should_display_right_number_on_group() {
+        clickOn("Triangle");
+        moveBy(50,80).drag().dropBy(60,100);
+        clickOn("Circle");
+        moveBy(60,80).drag().dropBy(70,40);
+        clickOn(app.getDrawingPane().getChildren().get(1));
+        press(KeyCode.CONTROL).clickOn(app.getDrawingPane().getChildren().get(0));
+        clickOn("Associate");
+        moveTo(app.getDrawingPane().getChildren().get(0)).clickOn();
+        assertTrue(app.getDrawingPane().getNbSelectedShape() == 1);
+    }
+
 }
