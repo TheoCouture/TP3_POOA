@@ -155,4 +155,16 @@ public class PaintTest extends ApplicationTest {
         assertTrue(app.getDrawingPane().getNbSelectedShape() == 1);
     }
 
+    @Test
+    public void should_undo_okay() {
+        clickOn("Triangle");
+        moveBy(50,80).drag().dropBy(60,100);
+        clickOn("Rectangle");
+        moveBy(180,90).drag().dropBy(70,120);
+        clickOn("Undo");
+        clickOn("Undo");
+        clickOn("Undo");
+        assertTrue(app.getDrawingPane().getNbShape() == 0);
+    }
+
 }
