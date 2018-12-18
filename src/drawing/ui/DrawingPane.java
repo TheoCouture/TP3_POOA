@@ -1,5 +1,6 @@
 package drawing.ui;
 
+import drawing.commands.CommandHistory;
 import drawing.shapes.IShape;
 import drawing.handlers.MouseMoveHandler;
 import drawing.handlers.SelectionHandler;
@@ -25,11 +26,14 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable {
 
     private ArrayList<IShape> shapes;
 
+    private CommandHistory history;
+
     public DrawingPane() {
         clipChildren();
         shapes = new ArrayList<>();
         mouseMoveHandler = new MouseMoveHandler(this);
         selectHandler = new SelectionHandler(this);
+        history = new CommandHistory();
     }
 
 
@@ -46,6 +50,10 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable {
             outputClip.setWidth(newValue.getWidth());
             outputClip.setHeight(newValue.getHeight());
         });
+    }
+
+    public CommandHistory getHistory(){
+        return history;
     }
 
     public void addShape(IShape shape) {
@@ -82,6 +90,11 @@ public class DrawingPane extends Pane implements Iterable<IShape>, Observable {
         selectHandler.emptySelection();
         notifyObservers();
 
+    }
+
+    public ArrayList<IShape> getShapes()
+    {
+        return shapes;
     }
 
     public void upgradeShape(ArrayList<IShape> shapes){

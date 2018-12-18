@@ -1,5 +1,7 @@
 package drawing.handlers;
 
+import drawing.commands.DegroupCommand;
+import drawing.commands.ICommand;
 import drawing.shapes.IShape;
 import drawing.shapes.ShapeComposite;
 import drawing.ui.DrawingPane;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 
 public class DisassociateButtonHandler implements EventHandler {
     private DrawingPane pane;
+    private ICommand command;
 
     public DisassociateButtonHandler(DrawingPane pane){
         this.pane = pane;
@@ -17,7 +20,7 @@ public class DisassociateButtonHandler implements EventHandler {
     @Override
     public void handle(Event event) {
 
-        ArrayList<IShape> selectedShape = this.pane.getSelectedShape();
+        /*ArrayList<IShape> selectedShape = this.pane.getSelectedShape();
 
 
         for (IShape o : selectedShape){
@@ -29,7 +32,10 @@ public class DisassociateButtonHandler implements EventHandler {
                 }
             }
 
-        }
+        }*/
+
+        this.command = new DegroupCommand(pane);
+        this.pane.getHistory().exec(command);
 
 
     }

@@ -19,6 +19,8 @@ public class ToolBar extends HBox {
     private Button clearSelectedButton;
     private Button associateButton;
     private Button disassociateButton;
+    private Button undoButton;
+    private Button redoButton;
     private ButtonFactory bf;
 
 
@@ -45,7 +47,14 @@ public class ToolBar extends HBox {
 
         clearSelectedButton = bf.createButton(ButtonFactory.CLEARSELECT);
         clearSelectedButton.addEventFilter(ActionEvent.ACTION, new ClearSelectedButtonHandler(pane));
-        this.getChildren().addAll(clearButton, rectangleButton, circleButton, triangleButton, clearSelectedButton,associateButton,disassociateButton);
+
+        undoButton = bf.createButton(ButtonFactory.UNDO);
+        undoButton.addEventFilter(ActionEvent.ACTION, new UndoButtonHandler(pane));
+        redoButton = bf.createButton(ButtonFactory.REDO);
+        redoButton.addEventFilter(ActionEvent.ACTION, new RedoButtonHandler(pane));
+
+
+        this.getChildren().addAll(clearButton, rectangleButton, circleButton, triangleButton, clearSelectedButton,associateButton,disassociateButton, undoButton,redoButton);
 
         this.setPadding(new Insets(5));
         this.setSpacing(5.0);

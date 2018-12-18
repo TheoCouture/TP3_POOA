@@ -16,6 +16,8 @@ public class ButtonFactory {
     public static final String[] CLEARSELECT = new String[] {"Clear Select","../images/clearselect.png"};
     public static final String[] ASSOCIATE = new String[] {"Associate","../images/clearselect.png"};
     public static final String[] DISASSOCIATE = new String[] {"Disassociate","../images/clearselect.png"};
+    public static final String[] REDO = new String[] {"Redo","../images/redo.png"};
+    public static final String[] UNDO = new String[] {"Undo","../images/undo.png"};
     public static final int ICONSONLY = 0;
     public static final int TEXTONLY = 1;
 

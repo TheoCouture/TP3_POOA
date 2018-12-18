@@ -1,5 +1,7 @@
 package drawing.handlers;
 
+import drawing.commands.ICommand;
+import drawing.commands.ShapeCommand;
 import drawing.ui.DrawingPane;
 import drawing.shapes.IShape;
 import javafx.event.ActionEvent;
@@ -7,12 +9,15 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
+import javax.swing.*;
+
 /**
  * Created by lewandowski on 20/12/2017.
  */
 public abstract class ShapeButtonHandler implements EventHandler<Event> {
 
     private DrawingPane drawingPane;
+    private ICommand command;
     protected double originX;
     protected double originY;
     protected double destinationX;
@@ -42,8 +47,11 @@ public abstract class ShapeButtonHandler implements EventHandler<Event> {
                 destinationX = ((MouseEvent) event).getX();
                 destinationY = ((MouseEvent) event).getY();
                 shape = createShape();
-                drawingPane.addShape(shape);
+                //drawingPane.addShape(shape);
                 //drawingPane.getShapes().add(shape);
+
+                this.command = new ShapeCommand(drawingPane, shape);
+                this.drawingPane.getHistory().exec(command);
 
                 drawingPane.removeEventHandler(MouseEvent.MOUSE_PRESSED, this);
                 drawingPane.removeEventHandler(MouseEvent.MOUSE_RELEASED, this);
